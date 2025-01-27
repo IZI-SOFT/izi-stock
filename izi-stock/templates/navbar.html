@@ -1,0 +1,131 @@
+
+
+{#{% block navbar %}#}
+{#<nav class="sb-topnav navbar navbar-expand-lg navbar-dark" style="background-color: #04414d;">#}
+{#    <div class="container-fluid">#}
+{#        <!-- Sidebar Toggle and Brand -->#}
+{#        <div class="d-flex align-items-center">#}
+{#            <!-- Sidebar Toggle -->#}
+{#            <button class="btn btn-link btn-sm me-2" id="sidebarToggle">#}
+{#                <i class="fas fa-bars"></i>#}
+{#            </button>#}
+{##}
+{#            <!-- Navbar Brand -->#}
+{#            {% if perms.users.can_view_dashboard %}#}
+{#                <a class="navbar-brand ps-1" href="{% url 'dashboard' %}">Dashboard</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{##}
+{#        <!-- "IZI STOCK" centered and responsive text -->#}
+{#        <div class="text-center d-none d-lg-block" style="font-size: 3rem; font-weight: bold; font-style: italic;color:red">#}
+{#            IZI STOCK#}
+{#        </div>#}
+{##}
+{#        <!-- Navbar Collapse for Responsive -->#}
+{#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{##}
+{#        <div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#            <!-- Right Section -->#}
+{#            <ul class="navbar-nav ms-auto align-items-center">#}
+{#                <li class="nav-item">#}
+{#                    <a class="btn btn-danger btn-sm" href="#" id="logoutButton">Déconnexion</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <!-- Script pour le bouton de déconnexion -->#}
+{#    <script>#}
+{#        document.getElementById('logoutButton').addEventListener('click', function (event) {#}
+{#            event.preventDefault(); // Empêche la navigation par défaut#}
+{#            Swal.fire({#}
+{#                title: 'Confirmer la déconnexion',#}
+{#                text: "Êtes-vous sûr de vouloir vous déconnecter ?",#}
+{#                icon: 'warning',#}
+{#                showCancelButton: true,#}
+{#                confirmButtonColor: '#d33',#}
+{#                cancelButtonColor: '#3085d6',#}
+{#                confirmButtonText: 'Oui, déconnectez-moi',#}
+{#                cancelButtonText: 'Annuler'#}
+{#            }).then((result) => {#}
+{#                if (result.isConfirmed) {#}
+{#                    window.location.href = "{% url 'logout' %}";#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#</nav>#}
+{#{% endblock navbar %}#}
+{% block navbar %}
+<nav class="sb-topnav navbar navbar-expand-lg navbar-dark" style="background-color: #04414d;">
+    <div class="container-fluid">
+        <!-- Sidebar Toggle and Brand -->
+        <div class="d-flex align-items-center">
+            <!-- Sidebar Toggle -->
+            <button class="btn btn-link btn-sm me-2" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Navbar Brand -->
+            {% if perms.users.can_view_dashboard %}
+                <a class="navbar-brand ps-1" href="{% url 'dashboard' %}">Dashboard</a>
+            {% endif %}
+        </div>
+
+        <div class="navbar-text text-white fw-bold">
+            <span>IZI STOCK - Votre solution de gestion de stock en temps réel</span>
+        </div>
+
+{#        <!-- Navbar Collapse for Responsive -->#}
+{#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+
+{#        <div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#            <!-- Right Section -->#}
+{#            <ul class="navbar-nav ms-auto align-items-center">#}
+{#                <li class="nav-item">#}
+{#                    <a class="btn btn-danger btn-sm" href="#" id="logoutButton">Déconnexion</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+    </div>
+</nav>
+
+
+    <style>
+/* Animation pour le texte défilant */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.navbar-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%; /* S'assure que l'élément prend toute la largeur */
+}
+
+.navbar-text span {
+    display: inline-block;
+    padding-right: 100%;
+    animation: scroll-left 40s linear infinite; /* Changer la durée ici */
+}
+
+/* Cacher le texte défilant sur les petits écrans (mobile) */
+@media (max-width: 768px) {
+    .navbar-text {
+        display: none;
+    }
+}
+
+    </style>
+{% endblock navbar %}
+

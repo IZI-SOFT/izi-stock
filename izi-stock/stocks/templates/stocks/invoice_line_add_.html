@@ -1,0 +1,60 @@
+{% extends 'sidebar.html' %}
+
+{% block main %}
+<main>
+                    <div class="container-fluid px-4">
+                        <h2 class="mt-4">Ajout de ligne à la facture: {{ invoice.number }}</h2>
+
+                        <hr>
+                        <div class="row justify-content-center">
+                          <div class="col-md-6">
+
+
+                            <form method="post" class="shadow p-4 bg-light rounded">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    {{ form.product.label_tag }}
+                                    {{ form.product }}
+                                    {% if form.product.errors %}
+                                        <div class="text-danger">
+                                            {{ form.product.errors }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            <div class="mb-3">
+                                {{ form.quantity.label_tag }}
+                                {{ form.quantity }}
+                                {% if form.quantity.errors %}
+                                    <div class="text-danger">
+                                        {{ form.quantity.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.unit_price.label_tag }}
+                                {{ form.unit_price }}
+                                {% if form.unit_price.errors %}
+                                    <div class="text-danger">
+                                        {{ form.unit_price.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                    <button type="submit" class="btn  text-light w-100" style="background: #04414d">Ajouter une ligne</button>
+                            </form>
+                          <h2>Total Facture: {{ invoice.total_amount }}</h2>
+
+                        </div>
+                    </div>
+                    </div>
+
+
+                </main>
+
+{% endblock main %}
+
+
+
+
+
+

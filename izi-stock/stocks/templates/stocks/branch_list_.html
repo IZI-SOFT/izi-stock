@@ -1,0 +1,98 @@
+{% extends 'sidebar.html' %}
+
+{% block main %}
+<main>
+{% include 'messages.html' %}
+                    <div class="container-fluid px-4">
+
+                        <h2 class="mt-4">Liste des succursales</h2>
+
+                        <hr>
+
+                    {% if perms.stocks.add_branch %}  <!-- masquer le bouton de création pour l'utilisateur qui n'a pas la permission-->
+                    <a href="{% url 'branches_add' %}" class="btn btn-sm btn-outline-primary">Ajouter une succursale</a>
+                     {% endif %}
+                        <hr>
+                        <div class="row">
+                         <!-- Champ de recherche -->
+                            {% include 'search_form.html' %}
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="d-none d-md-table-cell">Code</th>
+                              <th scope="col">Dénomination</th>
+                              <th scope="col" class="d-none d-md-table-cell">Localisation</th>
+                              <th scope="col" class="d-none d-md-table-cell">Actif</th>
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                {% for branch in branches %}
+                            <tr>
+                              <td  class="d-none d-md-table-cell">{{ branch.id }}</td>
+                              <td >{{ branch.description }}</td>
+                              <td  class="d-none d-md-table-cell">{{ branch.location }}</td>
+                              <td  class="d-none d-md-table-cell">{{ branch.is_active }}</td>
+
+
+                            <td>
+                            <!-- Boutons CRUD -->
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                                {% if perms.stocks.change_branch %}
+                            <a href="{% url 'branches_edit' branch.id%}" class="btn btn-sm btn-warning">Modifier</a>
+                                {% endif %}
+
+                            {% if perms.stocks.delete_branch %}
+                                <button
+                                   class="btn btn-sm btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ branch.id }}">
+
+                                    Supprimer
+                                </button>
+                            {% endif %}
+                        </div>
+                                <!-- Modale de confirmation -->
+                                    <div class="modal fade" id="deleteModal{{ branch.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ branch.id }}" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ branch.id }}">Confirmation de suppression</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            Êtes-vous sûr de vouloir supprimer la succursale <strong>{{ branch.description }}</strong> ?
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <form method="post" action="{% url 'branches_delete' branch.id %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger">Confirmer</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                        </td>
+                            </tr>
+
+                                {% endfor %}
+
+                          </tbody>
+                        </table>
+                         {% include 'pagination.html' %}
+
+
+                        </div>
+
+                    </div>
+                </main>
+
+{% endblock main %}
+
+
+
+
+
+

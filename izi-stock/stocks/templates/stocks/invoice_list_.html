@@ -1,0 +1,103 @@
+{% extends 'sidebar.html' %}
+
+{% block main %}
+<main>
+{% include "messages.html" %}
+                    <div class="container-fluid px-4">
+
+                        <h2 class="mt-4">Liste des factures d'achat</h2>
+
+                        <hr>
+
+                    {% if perms.stocks.add_stock %}  <!-- masquer le bouton de création pour l'utilisateur qui n'a pas la permission-->
+                    <a href="{% url 'invoice_add' %}" class="btn btn-sm btn-outline-primary">Ajouter une facture</a>
+                     {% endif %}
+                        <hr>
+                        <div class="row">
+                         {% include 'search_form.html' %}
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="d-none d-md-table-cell">N°</th>
+                              <th scope="col">Date</th>
+                              <th scope="col" class="d-none d-md-table-cell">Remise</th>
+                              <th scope="col" class="d-none d-md-table-cell">Montant</th>
+                              <th scope="col" class="d-none d-md-table-cell">Succursale</th>
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                {% for invoice in invoices %}
+                            <tr>
+                              <td  class="d-none d-md-table-cell">{{ invoice.number }}</td>
+                              <td >{{ invoice.date_of_purchase }}</td>
+                              <td  class="d-none d-md-table-cell">{{ invoice.discount }}</td>
+                              <td  class="d-none d-md-table-cell">{{ invoice.total_amount }}</td>
+                              <td  class="d-none d-md-table-cell">{{ invoice.branch }}</td>
+
+                            <td>
+                            <div class="d-flex flex-column flex-sm-row gap-2">
+                            <!-- Boutons CRUD -->
+                                {% if perms.stocks.change_invoice%}
+                            <a href="{% url 'stock_edit' invoice.id %}" class="btn btn-sm btn-warning">Modifier</a>
+                                {% endif %}
+                                {% if perms.stocks.change_invoice%}
+                            <a href="{% url 'stock_edit' invoice.id %}" class="btn btn-sm btn-primary">Ajouter ligne</a>
+                                {% endif %}
+                                {% if perms.stocks.change_invoice%}
+                            <a href="{% url 'stock_edit' invoice.id %}" class="btn btn-sm btn-success">Valider</a>
+                                {% endif %}
+
+                            {% if perms.stocks.delete_invoice%}
+                                <button
+                                   class="btn btn-sm btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ invoice.id }}">
+
+                                    Supprimer
+                                </button>
+                            {% endif %}
+                            </div>
+                                <!-- Modale de confirmation -->
+                                    <div class="modal fade" id="deleteModal{{ stock.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ stock.id }}" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ invoice.id }}">Confirmation de suppression</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            Êtes-vous sûr de vouloir supprimer la facture  <strong>{{ invoice.number }}</strong> ?
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <form method="post" action="{% url 'stock_delete' invoice.id %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger">Confirmer</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                        </td>
+                            </tr>
+
+                                {% endfor %}
+
+                          </tbody>
+                        </table>
+                         {% include 'pagination.html' %}
+
+                        </div>
+
+                    </div>
+                </main>
+
+{% endblock main %}
+
+
+
+
+
+

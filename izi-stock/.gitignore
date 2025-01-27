@@ -1,0 +1,11 @@
+.venv/
+*/migrations
+.log
+.idea/
+*.env
+staticfiles/
+media/
+.vs/
+
+**/.venv/
+

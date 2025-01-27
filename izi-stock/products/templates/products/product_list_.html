@@ -1,0 +1,114 @@
+{% extends 'sidebar.html' %}
+
+{% block main %}
+<main>
+{% include 'messages.html' %}
+                    <div class="container-fluid px-4">
+
+                        <h2 class="mt-4">Liste des produits</h2>
+
+                        <hr>
+
+                    {% if perms.stocks.add_branch %}  <!-- masquer le bouton de création pour l'utilisateur qui n'a pas la permission-->
+                    <a href="{% url 'product_add' %}" class="btn btn-sm btn-outline-primary">Ajouter un produit</a>
+                     {% endif %}
+                        <hr>
+                        <div class="row">
+
+                          <!-- Champ de recherche -->
+                           {% include 'search_form.html' %}
+
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col" >Nom</th>
+                              <th scope="col" class="d-none d-md-table-cell">Description</th>
+                              <th scope="col" class="">Unité</th>
+                              <th scope="col" >Prix</th>
+                              <th scope="col" >Quantité</th>
+                              <th scope="col" class="d-none d-md-table-cell" >Catégorie</th>
+                              <th scope="col" class="d-none d-md-table-cell">Date fabrication</th>
+                              <th scope="col" class="d-none d-md-table-cell">Date péremption</th>
+
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                {% for product in products %}
+                            <tr>
+                              <td >{{ product.name }}</td>
+                              <td class="d-none d-md-table-cell">{{ product.description }}</td>
+                              <td >{{ product.unit }}</td>
+                              <td >{{ product.price }}</td>
+                              <td >{{ product.quantity }}</td>
+                              <td class="d-none d-md-table-cell">{{ product.category }}</td>
+                              <td class="d-none d-md-table-cell">{{ product.manufacture_date }}</td>
+                              <td class="d-none d-md-table-cell" >{{ product.expiration_date }}</td>
+
+
+
+
+                            <td>
+                            <!-- Boutons CRUD -->
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                                {% if perms.products.change_product %}
+                            <a href="{% url 'product_edit' product.id %}" class="btn btn-sm btn-warning">Modifier</a>
+                                {% endif %}
+
+                            {% if perms.products.delete_product %}
+                                <button
+                                   class="btn btn-sm btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ product.id }}">
+
+                                    Supprimer
+                                </button>
+                            {% endif %}
+                        </div>
+
+
+
+
+                                <!-- Modale de confirmation -->
+                                    <div class="modal fade" id="deleteModal{{ product.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ product.id }}" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ product.id }}">Confirmation de suppression</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            Êtes-vous sûr de vouloir supprimer le produit  <strong>{{ product.name }}</strong> ?
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <form method="post" action="{% url 'product_delete' product.id %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger">Confirmer</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                        </td>
+                            </tr>
+
+                                {% endfor %}
+
+                          </tbody>
+                        </table>
+                           {% include 'pagination.html' %}
+
+                        </div>
+
+                    </div>
+                </main>
+
+{% endblock main %}
+
+
+
+
+
+

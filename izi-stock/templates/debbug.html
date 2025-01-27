@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     {% for info_entreprise in info_entreprises %}
+                                                {% if info_entreprise.logo %}
+                                                    <img src="{{ info_entreprise.logo.url }}" alt="Logo" class="img-fluid" style="max-width: 200px;">
+                                                {% else %}
+                                                    <p>Aucun logo disponible</p>
+                                                {% endif %}
+                                            {% endfor %}
+</body>
+</html>

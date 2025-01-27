@@ -1,0 +1,49 @@
+{% extends 'sidebar.html' %}
+
+{% block main %}
+<main>
+                    <div class="container-fluid px-4">
+                        <h2 class="mt-4">Création des catégories de produit</h2>
+
+                        <hr>
+                        <div class="row justify-content-center">
+                          <div class="col-md-6">
+
+
+                            <form method="post" class="shadow p-4 bg-light rounded">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    {{ form.name.label_tag }}
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger">
+                                            {{ form.name.errors }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            <div class="mb-3">
+                                {{ form.description.label_tag }}
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger">
+                                        {{ form.description.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                    <button type="submit" class="btn  text-light w-100" style="background: #04414d">Enregistrer</button>
+                            </form>
+
+                        </div>
+                    </div>
+                    </div>
+                </main>
+
+{% endblock main %}
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+{% extends 'base_.html' %}
+{% load static %}
+
+{% block navbar %} {% include 'navbar.html' %}    {% endblock navbar %}
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock sidebar %}
+{% block main %}
+<body>
+    <!-- Texte avant les slides -->
+
+    <div class="simple-slider">
+
+        <div class="swiper-container">
+
+    <div class="swiper-wrapper">
+        {% for slide in slides %}
+        <div class="swiper-slide" style="background: url({{ slide.image.url }}) center center / cover no-repeat;"></div>
+        {% endfor %}
+    </div>
+
+</div>
+
+    </div>
+
+
+
+
+{#    script de défilement automatique#}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const swiper = new Swiper('.swiper-container', {
+      loop: true, // Boucle les slides
+      autoplay: {
+        delay: 3000, // Temps entre les slides (en millisecondes)
+        disableOnInteraction: false, // Ne pas désactiver l'autoplay si interaction
+      },
+      speed: 5000, // Durée de la transition entre les slides (en millisecondes)
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>
+
+
+</body>
+
+
+{% endblock main %}

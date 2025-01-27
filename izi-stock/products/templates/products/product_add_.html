@@ -1,0 +1,114 @@
+{% extends 'sidebar.html' %}
+
+
+{% block main %}
+<main>
+
+                    <div class="container-fluid px-4">
+                        <h2 class="mt-4">Création des produits</h2>
+
+                        <hr>
+                        <div class="row justify-content-center">
+                          <div class="col-md-6">
+
+
+                            <form method="post" class="shadow p-4 bg-light rounded">
+                                {% csrf_token %}
+                             <div class="mb-3">
+                            {{ form.media }}
+                                {{ form.category.label_tag }}
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                    <div class="text-danger">
+                                        {{ form.category.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                                <div class="mb-3">
+                                    {{ form.name.label_tag }}
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger">
+                                            {{ form.name.errors }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            <div class="mb-3">
+                                {{ form.description.label_tag }}
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger">
+                                        {{ form.description.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                             <div class="mb-3">
+
+                                {{ form.unit.label_tag }}
+                                {{ form.unit }}
+                                {% if form.unit.errors %}
+                                    <div class="text-danger">
+                                        {{ form.unit.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.price.label_tag }}
+                                {{ form.price }}
+                                {% if form.price.errors %}
+                                    <div class="text-danger">
+                                        {{ form.price.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.quantity.label_tag }}
+                                {{ form.quantity }}
+                                {% if form.quantity.errors %}
+                                    <div class="text-danger">
+                                        {{ form.quantity.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.manufacture_date.label_tag }}
+                                {{ form.manufacture_date }}
+                                {% if form.manufacture_date.errors %}
+                                    <div class="text-danger">
+                                        {{ form.manufacture_date.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.expiration_date.label_tag }}
+                                {{ form.expiration_date }}
+                                {% if form.expiration_date.errors %}
+                                    <div class="text-danger">
+                                        {{ form.expiration_date.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+
+                    <button type="submit" class="btn  text-light w-100" style="background: #04414d">Enregistrer</button>
+
+                            {% for error in form.non_field_errors %}
+        <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+                            </form>
+
+                        </div>
+                    </div>
+                    </div>
+                </main>
+
+{% endblock main %}
+
+
+
+
+
+
