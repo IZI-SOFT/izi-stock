@@ -52,8 +52,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'allauth',
     'allauth.account',
-
-
+    'storages',
 
     # Applications locales
     'users',
@@ -76,6 +75,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'izi-stock.urls'
+
 
 TEMPLATES = [
     {

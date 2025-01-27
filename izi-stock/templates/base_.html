@@ -50,12 +50,15 @@
 
     
     {% block scrolling_text %}
-   <div class="text-container ">
-        <h1 class="slide-title lobster-regular"> {{ current_branch }}</h1>
-       <img src="{% static 'media/ic-plate.png'  %} " alt="image fourchette">
-{#        <h3 class="slide-description">{{ entreprise_logo.texte}}</h3>#}
-        <h3 class="slide-description"> Bienvenue {{ user.first_name }} {{ user.last_name }}</h3>
-    </div>
+        <div class="text-container">
+
+            <h1 class="slide-title lobster-regular"> {{ current_branch }}</h1>
+            <h3 class="slide-description"> Bienvenue {{ user.username }}</h3>
+{#           <img src="{% static 'media/ic-plate.png' %}" alt="image fourchette" class="welcome-image">#}
+
+
+        </div>
+
     {% endblock scrolling_text %}
     
 
@@ -83,6 +86,7 @@
     font-size: 36px;
     font-weight: bold;
 }
+
 
 .slide-description {
     font-size: 18px;
