@@ -1,5 +1,5 @@
 .venv/
-*/migrations
+izi-stock/api/migrations
 .log
 .idea/
 *.env

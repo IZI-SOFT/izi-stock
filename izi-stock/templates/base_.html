@@ -51,8 +51,10 @@
     
     {% block scrolling_text %}
    <div class="text-container ">
-        <h1 class="slide-title lobster-regular">Restaurant {{ entreprise_logo.name }}</h1>
-        <h3 class="slide-description">{{ entreprise_logo.texte}}</h3>
+        <h1 class="slide-title lobster-regular"> {{ current_branch }}</h1>
+       <img src="{% static 'media/ic-plate.png'  %} " alt="image fourchette">
+{#        <h3 class="slide-description">{{ entreprise_logo.texte}}</h3>#}
+        <h3 class="slide-description"> Bienvenue {{ user.first_name }} {{ user.last_name }}</h3>
     </div>
     {% endblock scrolling_text %}
     
@@ -64,7 +66,7 @@
     margin-top: 80px; /* Ajustez la marge supérieure pour qu'il ne soit pas caché derrière la navbar */
     margin-bottom: 20px; /* Marge inférieure pour espacer du carrousel */
     padding: 20px;
-    background: url("");
+
     color: black;
     border-radius: 10px;
     z-index: 10; /* Pour s'assurer que le texte reste devant le sidebar et navbar */
